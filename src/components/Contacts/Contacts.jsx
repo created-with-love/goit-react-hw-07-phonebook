@@ -4,9 +4,11 @@ import { IconContext } from 'react-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
+
 import s from './Contacts.module.css';
-import actions from '../../redux/contacts/contacts-action';
-import { filteredContacts } from '../../redux/contacts/contacts-selectors';
+import { operations } from 'redux/contacts';
+import { filteredContacts, isLoading } from 'redux/contacts/contacts-selectors';
+import Loader from '../Loader';
 
 const variants = {
   hidden: {
@@ -22,6 +24,7 @@ const variants = {
 const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(filteredContacts);
+  const loading = useSelector(isLoading);
 
   const listClasses = classNames({
     [s.list]: true,
@@ -30,6 +33,7 @@ const Contacts = () => {
 
   return (
     <div className={listClasses}>
+      {loading && <Loader />}
       <ul className={s.list__ul}>
         {contacts.map(person => (
           <motion.li
@@ -46,9 +50,7 @@ const Contacts = () => {
                 className: 'react-icons',
               }}
             >
-              <FaAddressCard
-                onClick={() => dispatch(actions.deleteContact(person.id))}
-              />
+              <FaAddressCard />
             </IconContext.Provider>
             <p className={s.search__text}>
               {person.name} : {person.number}
@@ -62,7 +64,7 @@ const Contacts = () => {
                 }}
               >
                 <FaTrash
-                  onClick={() => dispatch(actions.deleteContact(person.id))}
+                  onClick={() => dispatch(operations.deleteContact(person.id))}
                 />
               </IconContext.Provider>
             </div>
