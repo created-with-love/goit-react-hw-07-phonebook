@@ -5,9 +5,8 @@ import { motion } from 'framer-motion';
 import PhoneInput from 'react-phone-input-2';
 
 import s from './Form.module.css';
-import operations from '../../redux/contacts/contacts-operations';
-// import actions from '../../redux/contacts/contacts-action';
-import { getItems } from '../../redux/contacts/contacts-selectors';
+import { operations } from 'redux/contacts';
+import { getItems } from 'redux/contacts/contacts-selectors';
 import 'react-phone-input-2/lib/style.css';
 
 const variants = {
@@ -25,9 +24,14 @@ function Form() {
   const contacts = useSelector(getItems);
   const dispatch = useDispatch();
 
-  const onSubmit = (name, number) =>
-    dispatch(operations.addContact(name, number));
+  const onSubmit = (name, number) => {
+    const user = {
+      name,
+      number,
+    };
 
+    dispatch(operations.addContact(user));
+  };
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -52,8 +56,6 @@ function Form() {
     } else return true;
   };
 
-  // для получения данных из формы в App.js во время сабмита
-  // использую метод с поднятием состояния в родитель
   const handleSubmit = e => {
     e.preventDefault();
     const isContactValid = validateContact(name, contacts);

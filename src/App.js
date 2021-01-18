@@ -5,7 +5,7 @@ import Form from './components/Form';
 import Section from './components/Section';
 import Contacts from './components/Contacts';
 import Filter from './components/Filter';
-import operation from './redux/contacts/contacts-operations';
+import operation from 'redux/contacts/contacts-operations';
 
 function App() {
   const dispatch = useDispatch();

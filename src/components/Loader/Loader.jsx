@@ -13,7 +13,7 @@ export default class App extends React.Component {
           color="#00BFFF"
           height={100}
           width={100}
-          timeout={3000} //3 secs
+          timeout={10000} //3 secs
         />
       </div>
     );

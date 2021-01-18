@@ -6,12 +6,8 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 
 import s from './Contacts.module.css';
-// import actions from '../../redux/contacts/contacts-action';
-import operations from '../../redux/contacts/contacts-operations';
-import {
-  filteredContacts,
-  isLoading,
-} from '../../redux/contacts/contacts-selectors';
+import { operations } from 'redux/contacts';
+import { filteredContacts, isLoading } from 'redux/contacts/contacts-selectors';
 import Loader from '../Loader';
 
 const variants = {
@@ -54,9 +50,7 @@ const Contacts = () => {
                 className: 'react-icons',
               }}
             >
-              <FaAddressCard
-                onClick={() => dispatch(operations.deleteContact(person.id))}
-              />
+              <FaAddressCard />
             </IconContext.Provider>
             <p className={s.search__text}>
               {person.name} : {person.number}
