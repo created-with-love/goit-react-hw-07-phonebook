@@ -9,8 +9,6 @@ import { operations } from 'redux/contacts';
 import { getItems } from 'redux/contacts/contacts-selectors';
 import 'react-phone-input-2/lib/style.css';
 
-console.log(operations.default.addContact);
-
 const variants = {
   hidden: {
     opacity: 0,

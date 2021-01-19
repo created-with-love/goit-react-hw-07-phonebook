@@ -1,8 +1,10 @@
+import memoize from 'memoizee';
+
 export const getItems = (state) => state.contacts.items;
 export const getFilter = (state) => state.contacts.filter;
 export const isLoading = (state) => state.contacts.loading;
 
-export const filteredContacts = (state) => {
+export const filteredContacts = memoize((state) => {
   const contacts = getItems(state);
   const filter = getFilter(state);
 
@@ -13,4 +15,4 @@ export const filteredContacts = (state) => {
     );
   };
   return getFiltredContacts(contacts);
-};
+});
