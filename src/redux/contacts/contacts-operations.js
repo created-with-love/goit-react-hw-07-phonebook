@@ -1,13 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 axios.defaults.baseURL = 'http://localhost:4040';
 
-const fetchContacts = createAsyncThunk(
+export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
-      // сортировка для получения актуальных данных, как и в редаксе
+      // const { data } = await axios.get('/contacts');
       const { data } = await axios.get('/contacts?_sort=id&_order=desc');
       return data;
     } catch (error) {
@@ -16,26 +17,26 @@ const fetchContacts = createAsyncThunk(
   }
 );
 
-const addContact = createAsyncThunk(
+export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (user, { rejectWithValue }) => {
     const contact = {
       name: user.name,
       number: user.number,
+      id: uuidv4(),
     };
     try {
       await axios.post('/contacts', contact);
-      // Так как именно бек генерирует уникальный id,
-      //что бы его правильно отрисовать элементу для будущего взаимодействия нужно дселать запрос
-      const { data } = await axios.get('/contacts?_sort=id&_order=desc');
-      return data;
+      return contact;
+      // const { data } = await axios.get('/contacts?_sort=id&_order=desc');
+      // return data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
 
-const deleteContact = createAsyncThunk(
+export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
@@ -47,8 +48,4 @@ const deleteContact = createAsyncThunk(
   }
 );
 
-export default {
-  fetchContacts,
-  addContact,
-  deleteContact,
-};
+export default { deleteContact, addContact, fetchContacts };

@@ -9,6 +9,8 @@ import { operations } from 'redux/contacts';
 import { getItems } from 'redux/contacts/contacts-selectors';
 import 'react-phone-input-2/lib/style.css';
 
+console.log(operations.default.addContact);
+
 const variants = {
   hidden: {
     opacity: 0,
@@ -30,7 +32,7 @@ function Form() {
       number,
     };
 
-    dispatch(operations.addContact(user));
+    dispatch(operations.default.addContact(user));
   };
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
