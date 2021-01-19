@@ -12,7 +12,7 @@ function App() {
 
   React.useEffect(() => {
     dispatch(operation.fetchContacts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
